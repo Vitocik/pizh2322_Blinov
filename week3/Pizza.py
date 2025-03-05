@@ -155,22 +155,22 @@ class Terminal:
             print(f"{i}. {pizza}")
 
     def process_input(self) -> Order:
-        """
-        Обработка ввода пользователя.
-        :return: Объект Order.
-        """
-        self.order = Order()
-        while True:
-            self.show_menu()
-            choice = input("Выберите пиццу (или '0' для завершения заказа): ")
-            if choice == "0":
-                break
-            if choice.isdigit() and 1 <= int(choice) <= len(self.menu):
-                self.order.add_pizza(self.menu[int(choice) - 1])
-                print(f"{self.menu[int(choice) - 1].name} добавлена в заказ.")
-            else:
-                print("Некорректный выбор.")
-        return self.order
+    """
+    Обработка ввода пользователя.
+    :return: Объект Order.
+    """
+    self.order = Order()  # Создаем новый заказ
+    while True:  # Бесконечный цикл для выбора пицц
+        self.show_menu()  # Показываем меню
+        choice = input("Выберите пиццу (или '0' для завершения заказа): ")  # Запрашиваем выбор пользователя
+        if choice == "0":  # Если пользователь ввел '0', завершаем выбор
+            break
+        if choice.isdigit() and 1 <= int(choice) <= len(self.menu):  # Проверяем корректность выбора
+            self.order.add_pizza(self.menu[int(choice) - 1])  # Добавляем выбранную пиццу в заказ
+            print(f"{self.menu[int(choice) - 1].name} добавлена в заказ.")  # Сообщаем о добавлении
+        else:
+            print("Некорректный выбор.")  # Сообщаем об ошибке, если выбор некорректен
+    return self.order  # Возвращаем сформированный заказ
 
     def accept_payment(self) -> None:
         """
