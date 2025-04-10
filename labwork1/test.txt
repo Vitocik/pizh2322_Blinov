@@ -1,0 +1,5 @@
+Hello world!
+This is a test file.
+This is the third line,
+words lines bytes and chars.
+2025 year
