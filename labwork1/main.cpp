@@ -4,26 +4,26 @@
 #include <vector>
 #include <cctype>
 
-// Структура для хранения статистики о файле
+// РЎС‚СЂСѓРєС‚СѓСЂР° РґР»СЏ С…СЂР°РЅРµРЅРёСЏ СЃС‚Р°С‚РёСЃС‚РёРєРё Рѕ С„Р°Р№Р»Рµ
 struct FileStats {
-    std::string filename;  // Имя файла
-    int lines = 0;         // Количество строк
-    int words = 0;         // Количество слов
-    int bytes = 0;         // Размер в байтах
-    int chars = 0;         // Количество символов
+    std::string filename;  // РРјСЏ С„Р°Р№Р»Р°
+    int lines = 0;         // РљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє
+    int words = 0;         // РљРѕР»РёС‡РµСЃС‚РІРѕ СЃР»РѕРІ
+    int bytes = 0;         // Р Р°Р·РјРµСЂ РІ Р±Р°Р№С‚Р°С…
+    int chars = 0;         // РљРѕР»РёС‡РµСЃС‚РІРѕ СЃРёРјРІРѕР»РѕРІ
 };
 
-// Функция для вывода статистики в соответствии с запрошенными опциями
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РІС‹РІРѕРґР° СЃС‚Р°С‚РёСЃС‚РёРєРё РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р·Р°РїСЂРѕС€РµРЅРЅС‹РјРё РѕРїС†РёСЏРјРё
 void printStats(const FileStats& stats, bool showLines, bool showWords, bool showBytes, bool showChars) {
-    bool first = true;  // Флаг для управления пробелами между значениями
+    bool first = true;  // Р¤Р»Р°Рі РґР»СЏ СѓРїСЂР°РІР»РµРЅРёСЏ РїСЂРѕР±РµР»Р°РјРё РјРµР¶РґСѓ Р·РЅР°С‡РµРЅРёСЏРјРё
 
-    // Вывод количества строк, если запрошено
+    // Р’С‹РІРѕРґ РєРѕР»РёС‡РµСЃС‚РІР° СЃС‚СЂРѕРє, РµСЃР»Рё Р·Р°РїСЂРѕС€РµРЅРѕ
     if (showLines) {
         std::cout << stats.lines;
         first = false;
     }
 
-    // Вывод количества слов, если запрошено
+    // Р’С‹РІРѕРґ РєРѕР»РёС‡РµСЃС‚РІР° СЃР»РѕРІ, РµСЃР»Рё Р·Р°РїСЂРѕС€РµРЅРѕ
     if (showWords) {
         if (!first) std::cout << " ";
         std::cout << stats.words;
@@ -42,15 +42,15 @@ void printStats(const FileStats& stats, bool showLines, bool showWords, bool sho
         first = false;
     }
 
-    // Вывод имени файла и перевода строки
+    // Р’С‹РІРѕРґ РёРјРµРЅРё С„Р°Р№Р»Р° Рё РїРµСЂРµРІРѕРґР° СЃС‚СЂРѕРєРё
     std::cout << " " << stats.filename << std::endl;
 }
 
-// Функция для вывода содержимого файла на экран
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РІС‹РІРѕРґР° СЃРѕРґРµСЂР¶РёРјРѕРіРѕ С„Р°Р№Р»Р° РЅР° СЌРєСЂР°РЅ
 void printFileContent(const std::string& filename) {
     std::ifstream file(filename);
     if (!file.is_open()) {
-        std::cerr << "Ошибка: невозможно открыть файл '" << filename << "'" << std::endl;
+        std::cerr << "РћС€РёР±РєР°: РЅРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р» '" << filename << "'" << std::endl;
         return;
     }
 
@@ -61,21 +61,21 @@ void printFileContent(const std::string& filename) {
     file.close();
 }
 
-// Функция для подсчета статистики файла
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РїРѕРґСЃС‡РµС‚Р° СЃС‚Р°С‚РёСЃС‚РёРєРё С„Р°Р№Р»Р°
 FileStats countFileStats(const std::string& filename) {
     FileStats stats;
     stats.filename = filename;
 
     std::ifstream file(filename, std::ios::binary);
     if (!file.is_open()) {
-        std::cerr << "Ошибка: невозможно открыть файл '" << filename << "'" << std::endl;
+        std::cerr << "РћС€РёР±РєР°: РЅРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р» '" << filename << "'" << std::endl;
         return stats;
     }
 
     char c;
-    bool inWord = false;  // Флаг, указывающий, что мы внутри слова
+    bool inWord = false;  // Р¤Р»Р°Рі, СѓРєР°Р·С‹РІР°СЋС‰РёР№, С‡С‚Рѕ РјС‹ РІРЅСѓС‚СЂРё СЃР»РѕРІР°
 
-    // Определение размера файла в байтах
+    // РћРїСЂРµРґРµР»РµРЅРёРµ СЂР°Р·РјРµСЂР° С„Р°Р№Р»Р° РІ Р±Р°Р№С‚Р°С…
     file.seekg(0, std::ios::end);
     stats.bytes = file.tellg();
     file.seekg(0, std::ios::beg);
@@ -84,7 +84,7 @@ FileStats countFileStats(const std::string& filename) {
     while (file.get(c)) {
         stats.chars++;
 
-        // Если встретился символ новой строки
+        // Р•СЃР»Рё РІСЃС‚СЂРµС‚РёР»СЃСЏ СЃРёРјРІРѕР» РЅРѕРІРѕР№ СЃС‚СЂРѕРєРё
         if (c == '\n') {
             stats.lines++;
             if (inWord) {
@@ -92,25 +92,25 @@ FileStats countFileStats(const std::string& filename) {
                 inWord = false;
             }
         }
-        // Если встретился пробельный символ
+        // Р•СЃР»Рё РІСЃС‚СЂРµС‚РёР»СЃСЏ РїСЂРѕР±РµР»СЊРЅС‹Р№ СЃРёРјРІРѕР»
         else if (std::isspace(static_cast<unsigned char>(c))) {
             if (inWord) {
                 stats.words++;
                 inWord = false;
             }
         }
-        // Если это символ слова
+        // Р•СЃР»Рё СЌС‚Рѕ СЃРёРјРІРѕР» СЃР»РѕРІР°
         else {
             inWord = true;
         }
     }
 
-    // Учет последнего слова, если файл не заканчивается пробелом
+    // РЈС‡РµС‚ РїРѕСЃР»РµРґРЅРµРіРѕ СЃР»РѕРІР°, РµСЃР»Рё С„Р°Р№Р» РЅРµ Р·Р°РєР°РЅС‡РёРІР°РµС‚СЃСЏ РїСЂРѕР±РµР»РѕРј
     if (inWord) {
         stats.words++;
     }
 
-    // Учет последней строки, если файл не заканчивается символом новой строки
+    // РЈС‡РµС‚ РїРѕСЃР»РµРґРЅРµР№ СЃС‚СЂРѕРєРё, РµСЃР»Рё С„Р°Р№Р» РЅРµ Р·Р°РєР°РЅС‡РёРІР°РµС‚СЃСЏ СЃРёРјРІРѕР»РѕРј РЅРѕРІРѕР№ СЃС‚СЂРѕРєРё
     if (stats.chars > 0 && file.peek() == EOF && c != '\n') {
         stats.lines++;
     }
@@ -122,13 +122,13 @@ FileStats countFileStats(const std::string& filename) {
 int main(int argc, char* argv[]) {
     setlocale(LC_ALL, "Russian");
 
-    // Обработка случая, когда передано только имя программы и имя файла без опций
+    // РћР±СЂР°Р±РѕС‚РєР° СЃР»СѓС‡Р°СЏ, РєРѕРіРґР° РїРµСЂРµРґР°РЅРѕ С‚РѕР»СЊРєРѕ РёРјСЏ РїСЂРѕРіСЂР°РјРјС‹ Рё РёРјСЏ С„Р°Р№Р»Р° Р±РµР· РѕРїС†РёР№
     if (argc == 2 && argv[1][0] != '-') {
         printFileContent(argv[1]);
         return 0;
     }
 
-    std::vector<std::string> filenames;  // Список имен файлов для обработки
+    std::vector<std::string> filenames;  // РЎРїРёСЃРѕРє РёРјРµРЅ С„Р°Р№Р»РѕРІ РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё
     bool showLines = false;
     bool showWords = false; 
     bool showBytes = false;
@@ -137,7 +137,7 @@ int main(int argc, char* argv[]) {
     for (int i = 1; i < argc; ++i) {
         std::string arg = argv[i];
 
-        // Обработка длинных опций (--option)
+        // РћР±СЂР°Р±РѕС‚РєР° РґР»РёРЅРЅС‹С… РѕРїС†РёР№ (--option)
         if (arg == "--lines" || arg == "-l") {
             showLines = true;
         }
@@ -150,7 +150,7 @@ int main(int argc, char* argv[]) {
         else if (arg == "--chars" || arg == "-m") {
             showChars = true;
         }
-        // Обработка комбинированных коротких опций (-lwm)
+        // РћР±СЂР°Р±РѕС‚РєР° РєРѕРјР±РёРЅРёСЂРѕРІР°РЅРЅС‹С… РєРѕСЂРѕС‚РєРёС… РѕРїС†РёР№ (-lwm)
         else if (arg.size() > 1 && arg[0] == '-' && arg[1] != '-') {
             for (size_t j = 1; j < arg.size(); ++j) {
                 switch (arg[j]) {
@@ -159,35 +159,35 @@ int main(int argc, char* argv[]) {
                 case 'c': showBytes = true; break;
                 case 'm': showChars = true; break;
                 default:
-                    std::cerr << "Ошибка: неизвестная опция '" << arg[j] << "'" << std::endl;
+                    std::cerr << "РћС€РёР±РєР°: РЅРµРёР·РІРµСЃС‚РЅР°СЏ РѕРїС†РёСЏ '" << arg[j] << "'" << std::endl;
                     return 1;
                 }
             }
         }
-        // Если аргумент не является опцией, считаем его именем файла
+        // Р•СЃР»Рё Р°СЂРіСѓРјРµРЅС‚ РЅРµ СЏРІР»СЏРµС‚СЃСЏ РѕРїС†РёРµР№, СЃС‡РёС‚Р°РµРј РµРіРѕ РёРјРµРЅРµРј С„Р°Р№Р»Р°
         else if (arg[0] != '-') {
             filenames.push_back(arg);
         }
         else {
-            std::cerr << "Ошибка: неизвестная опция '" << arg << "'" << std::endl;
+            std::cerr << "РћС€РёР±РєР°: РЅРµРёР·РІРµСЃС‚РЅР°СЏ РѕРїС†РёСЏ '" << arg << "'" << std::endl;
             return 1;
         }
     }
 
-    // Проверка, что указано хотя бы одно имя файла
+    // РџСЂРѕРІРµСЂРєР°, С‡С‚Рѕ СѓРєР°Р·Р°РЅРѕ С…РѕС‚СЏ Р±С‹ РѕРґРЅРѕ РёРјСЏ С„Р°Р№Р»Р°
     if (filenames.empty()) {
-        std::cerr << "Ошибка: не указано имя файла" << std::endl;
+        std::cerr << "РћС€РёР±РєР°: РЅРµ СѓРєР°Р·Р°РЅРѕ РёРјСЏ С„Р°Р№Р»Р°" << std::endl;
         return 1;
     }
 
-    // Обработка каждого файла
+    // РћР±СЂР°Р±РѕС‚РєР° РєР°Р¶РґРѕРіРѕ С„Р°Р№Р»Р°
     for (const auto& filename : filenames) {
-        // Если указаны какие-либо опции, выводим статистику
+        // Р•СЃР»Рё СѓРєР°Р·Р°РЅС‹ РєР°РєРёРµ-Р»РёР±Рѕ РѕРїС†РёРё, РІС‹РІРѕРґРёРј СЃС‚Р°С‚РёСЃС‚РёРєСѓ
         if (showLines || showWords || showBytes || showChars) {
             FileStats stats = countFileStats(filename);
             printStats(stats, showLines, showWords, showBytes, showChars);
         }
-        // Иначе выводим содержимое файла
+        // РРЅР°С‡Рµ РІС‹РІРѕРґРёРј СЃРѕРґРµСЂР¶РёРјРѕРµ С„Р°Р№Р»Р°
         else {
             printFileContent(filename);
         }
