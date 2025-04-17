@@ -30,12 +30,12 @@ uint2022_t from_string(const char* buff) {
         uint2022_t temp = res * from_uint(10);
 
         // Проверка на переполнение: если temp < res, значит, произошло переполнение
-        assert(!(temp < res) && "Overflow during multiplication in from_string");
+        assert(!(temp < res) && "Переполнение при умножении в from_string");
 
         temp = temp + digit;
 
         // Проверка на переполнение после сложения
-        assert(!(temp < res) && "Overflow during addition in from_string");
+        assert(!(temp < res) && "Переполнение при добавлении в from_string");
 
         res = temp;
     }
@@ -53,14 +53,12 @@ uint2022_t operator+(const uint2022_t& a, const uint2022_t& b) {
         carry = sum >> 32;
     }
 
-    assert(carry == 0 && "Overflow in addition");
+    assert(carry == 0 && "Переполнение при сложении");
 
     return res;
 }
 
 uint2022_t operator-(const uint2022_t& a, const uint2022_t& b) {
-    assert(a >= b && "Subtraction underflow: a < b");
-
 
     uint2022_t res;
     int64_t borrow = 0;
@@ -87,7 +85,7 @@ uint2022_t operator*(const uint2022_t& a, const uint2022_t& b) {
             res.data[i + j] = mul & 0xFFFFFFFF;
             carry = mul >> 32;
         }
-        assert(carry == 0 && "Overflow in multiplication");
+        assert(carry == 0 && "Переполнение при умножении");
     }
     return res;
 }
