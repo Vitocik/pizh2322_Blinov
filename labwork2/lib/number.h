@@ -32,11 +32,3 @@ std::ostream& operator<<(std::ostream& stream, const uint2022_t& value);
 bool operator<(const uint2022_t& lhs, const uint2022_t& rhs);
 
 bool operator<=(const uint2022_t& lhs, const uint2022_t& rhs);
-
-bool operator>(const uint2022_t& a, const uint2022_t& b) {
-    return b < a;
-}
-
-bool operator>=(const uint2022_t& a, const uint2022_t& b) {
-    return !(a < b);
-}
