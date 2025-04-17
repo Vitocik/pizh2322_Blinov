@@ -29,12 +29,12 @@ uint2022_t from_string(const char* buff) {
         uint2022_t digit = from_uint(c - '0');
         uint2022_t temp = res * from_uint(10);
 
-        // Проверка на переполнение: если temp < res, значит, произошло переполнение
+        // РџСЂРѕРІРµСЂРєР° РЅР° РїРµСЂРµРїРѕР»РЅРµРЅРёРµ: РµСЃР»Рё temp < res, Р·РЅР°С‡РёС‚, РїСЂРѕРёР·РѕС€Р»Рѕ РїРµСЂРµРїРѕР»РЅРµРЅРёРµ
         assert(!(temp < res) && "Overflow during multiplication in from_string");
 
         temp = temp + digit;
 
-        // Проверка на переполнение после сложения
+        // РџСЂРѕРІРµСЂРєР° РЅР° РїРµСЂРµРїРѕР»РЅРµРЅРёРµ РїРѕСЃР»Рµ СЃР»РѕР¶РµРЅРёСЏ
         assert(!(temp < res) && "Overflow during addition in from_string");
 
         res = temp;
@@ -104,7 +104,7 @@ bool operator!=(const uint2022_t& a, const uint2022_t& b) {
 }
 
 std::ostream& operator<<(std::ostream& stream, const uint2022_t& value) {
-    // Выводим число как строку
+    // Р’С‹РІРѕРґРёРј С‡РёСЃР»Рѕ РєР°Рє СЃС‚СЂРѕРєСѓ
     uint2022_t temp = value;
 
     std::ostringstream oss;
@@ -140,9 +140,9 @@ std::ostream& operator<<(std::ostream& stream, const uint2022_t& value) {
     return stream;
 }
 
-// Деление на целое число
+// Р”РµР»РµРЅРёРµ РЅР° С†РµР»РѕРµ С‡РёСЃР»Рѕ
 uint2022_t operator/(const uint2022_t& a, const uint2022_t& b) {
-    if (b == from_uint(0)) return from_uint(0); // На 0 делить нельзя
+    if (b == from_uint(0)) return from_uint(0); // РќР° 0 РґРµР»РёС‚СЊ РЅРµР»СЊР·СЏ
 
     uint2022_t left = from_uint(0), right = a, mid, prod, res;
 
