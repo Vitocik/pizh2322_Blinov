@@ -5,7 +5,7 @@
 
 struct uint2022_t {
     // implement
-    static const int CAPACITY = 70; // 70 * 4 αΰιςΰ = 280 αΰις
+    static const int CAPACITY = 70; // 70 * 4 Π±Π°ΠΉΡ‚Π° = 280 Π±Π°ΠΉΡ‚
     uint32_t data[CAPACITY] = { 0 };
 };
 
