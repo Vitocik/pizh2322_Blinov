@@ -1,0 +1,5 @@
+# ninja log v6
+21	1018	7665649409576659	bin/CMakeFiles/lab2.dir/main.cpp.obj	d8708afd5335af7f
+14	1079	7665649409505641	lib/CMakeFiles/number.dir/number.cpp.obj	509181634d9cc1be
+1079	1205	7665649420163876	lib/number.lib	31749d49cd23534d
+326	500	7665115462286405	bin/lab2.exe	494efe035eb2776

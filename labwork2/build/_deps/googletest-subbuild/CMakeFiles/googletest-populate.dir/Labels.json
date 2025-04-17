@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/\u0412\u0438\u043a\u0442\u043e\u0440/source/repos/labwork2/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate"
+		},
+		{
+			"file" : "C:/Users/\u0412\u0438\u043a\u0442\u043e\u0440/source/repos/labwork2/build/_deps/googletest-subbuild/CMakeFiles/a9150000e6d86022358764093d5c7f59/googletest-populate.rule"
+		},
+		{
+			"file" : "C:/Users/\u0412\u0438\u043a\u0442\u043e\u0440/source/repos/labwork2/build/_deps/googletest-subbuild/CMakeFiles/18b6a1f32446c1dfbc6a7322b794367a/googletest-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/\u0412\u0438\u043a\u0442\u043e\u0440/source/repos/labwork2/build/_deps/googletest-subbuild/CMakeFiles/07d76d74fde3b99fc0b5431d0f758041/googletest-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/\u0412\u0438\u043a\u0442\u043e\u0440/source/repos/labwork2/build/_deps/googletest-subbuild/CMakeFiles/07d76d74fde3b99fc0b5431d0f758041/googletest-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/\u0412\u0438\u043a\u0442\u043e\u0440/source/repos/labwork2/build/_deps/googletest-subbuild/CMakeFiles/07d76d74fde3b99fc0b5431d0f758041/googletest-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/\u0412\u0438\u043a\u0442\u043e\u0440/source/repos/labwork2/build/_deps/googletest-subbuild/CMakeFiles/07d76d74fde3b99fc0b5431d0f758041/googletest-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/\u0412\u0438\u043a\u0442\u043e\u0440/source/repos/labwork2/build/_deps/googletest-subbuild/CMakeFiles/07d76d74fde3b99fc0b5431d0f758041/googletest-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/\u0412\u0438\u043a\u0442\u043e\u0440/source/repos/labwork2/build/_deps/googletest-subbuild/CMakeFiles/07d76d74fde3b99fc0b5431d0f758041/googletest-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/\u0412\u0438\u043a\u0442\u043e\u0440/source/repos/labwork2/build/_deps/googletest-subbuild/CMakeFiles/07d76d74fde3b99fc0b5431d0f758041/googletest-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/\u0412\u0438\u043a\u0442\u043e\u0440/source/repos/labwork2/build/_deps/googletest-subbuild/CMakeFiles/07d76d74fde3b99fc0b5431d0f758041/googletest-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"googletest-populate"
+		],
+		"name" : "googletest-populate"
+	}
+}
