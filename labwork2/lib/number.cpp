@@ -142,14 +142,16 @@ std::ostream& operator<<(std::ostream& stream, const uint2022_t& value) {
 // Деление на целое число
 uint2022_t operator/(const uint2022_t& a, const uint2022_t& b) {
     assert(!(b == from_uint(0)) && "Деление на ноль");
+    if (a < b) return from_uint(0);
 
-    if (a < b) return from_uint(0);  // результат — ноль
-
-    uint2022_t left = from_uint(0), right = a, mid, prod, res;
+    uint2022_t left = from_uint(0);
+    uint2022_t right = a;
+    uint2022_t res;
 
     while (left <= right) {
-        mid = (left + right) / from_uint(2);
-        prod = mid * b;
+        uint2022_t mid = (left + right) >> 1;
+        uint2022_t prod = mid * b;
+
         if (prod == a || prod < a) {
             res = mid;
             left = mid + from_uint(1);
@@ -158,6 +160,7 @@ uint2022_t operator/(const uint2022_t& a, const uint2022_t& b) {
             right = mid - from_uint(1);
         }
     }
+
     return res;
 }
 
@@ -173,3 +176,15 @@ bool operator<=(const uint2022_t& a, const uint2022_t& b) {
     return (a < b) || (a == b);
 }
 
+uint2022_t operator>>(const uint2022_t& num, int shift) {
+    uint2022_t res;
+    uint32_t carry = 0;
+
+    for (int i = uint2022_t::CAPACITY - 1; i >= 0; --i) {
+        uint32_t current = num.data[i];
+        res.data[i] = (current >> shift) | (carry << (32 - shift));
+        carry = current & ((1 << shift) - 1);
+    }
+
+    return res;
+}
