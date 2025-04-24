@@ -4,7 +4,6 @@
 
 
 struct uint2022_t {
-    // implement
     static const int CAPACITY = 70; // 70 * 4 байта = 280 байт
     uint32_t data[CAPACITY] = { 0 };
 };
@@ -32,3 +31,5 @@ std::ostream& operator<<(std::ostream& stream, const uint2022_t& value);
 bool operator<(const uint2022_t& lhs, const uint2022_t& rhs);
 
 bool operator<=(const uint2022_t& lhs, const uint2022_t& rhs);
+
+uint2022_t operator>>(const uint2022_t& num, int shift);
