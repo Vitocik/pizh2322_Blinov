@@ -29,7 +29,6 @@ uint2022_t from_string(const char* buff) {
         uint2022_t digit = from_uint(c - '0');
         uint2022_t temp = res * from_uint(10);
 
-        // Проверка на переполнение: если temp < res, значит, произошло переполнение
         assert(!(temp < res) && "Переполнение при умножении в from_string");
 
         temp = temp + digit;
@@ -59,6 +58,7 @@ uint2022_t operator+(const uint2022_t& a, const uint2022_t& b) {
 }
 
 uint2022_t operator-(const uint2022_t& a, const uint2022_t& b) {
+    assert(!(a < b) && "Попытка вычитания с результатом < 0");
 
     uint2022_t res;
     int64_t borrow = 0;
@@ -85,10 +85,11 @@ uint2022_t operator*(const uint2022_t& a, const uint2022_t& b) {
             res.data[i + j] = mul & 0xFFFFFFFF;
             carry = mul >> 32;
         }
-        assert(carry == 0 && "Переполнение при умножении");
+        assert(carry == 0 && "Переполнение при умножении — результат превышает вместимость uint2022_t");
     }
     return res;
 }
+
 
 bool operator==(const uint2022_t& a, const uint2022_t& b) {
     for (int i = 0; i < uint2022_t::CAPACITY; ++i) {
@@ -140,7 +141,9 @@ std::ostream& operator<<(std::ostream& stream, const uint2022_t& value) {
 
 // Деление на целое число
 uint2022_t operator/(const uint2022_t& a, const uint2022_t& b) {
-    if (b == from_uint(0)) return from_uint(0); // На 0 делить нельзя
+    assert(!(b == from_uint(0)) && "Деление на ноль");
+
+    if (a < b) return from_uint(0);  // результат — ноль
 
     uint2022_t left = from_uint(0), right = a, mid, prod, res;
 
