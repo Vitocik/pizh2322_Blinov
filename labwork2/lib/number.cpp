@@ -29,13 +29,12 @@ uint2022_t from_string(const char* buff) {
         uint2022_t digit = from_uint(c - '0');
         uint2022_t temp = res * from_uint(10);
 
-        // Проверка на переполнение: если temp < res, значит, произошло переполнение
-        assert(!(temp < res) && "Overflow during multiplication in from_string");
+        assert(!(temp < res) && "РџРµСЂРµРїРѕР»РЅРµРЅРёРµ РїСЂРё СѓРјРЅРѕР¶РµРЅРёРё РІ from_string");
 
         temp = temp + digit;
 
-        // Проверка на переполнение после сложения
-        assert(!(temp < res) && "Overflow during addition in from_string");
+        // РџСЂРѕРІРµСЂРєР° РЅР° РїРµСЂРµРїРѕР»РЅРµРЅРёРµ РїРѕСЃР»Рµ СЃР»РѕР¶РµРЅРёСЏ
+        assert(!(temp < res) && "РџРµСЂРµРїРѕР»РЅРµРЅРёРµ РїСЂРё РґРѕР±Р°РІР»РµРЅРёРё РІ from_string");
 
         res = temp;
     }
@@ -53,14 +52,13 @@ uint2022_t operator+(const uint2022_t& a, const uint2022_t& b) {
         carry = sum >> 32;
     }
 
-    assert(carry == 0 && "Overflow in addition");
+    assert(carry == 0 && "РџРµСЂРµРїРѕР»РЅРµРЅРёРµ РїСЂРё СЃР»РѕР¶РµРЅРёРё");
 
     return res;
 }
 
 uint2022_t operator-(const uint2022_t& a, const uint2022_t& b) {
-    assert(a >= b && "Subtraction underflow: a < b");
-
+    assert(!(a < b) && "РџРѕРїС‹С‚РєР° РІС‹С‡РёС‚Р°РЅРёСЏ СЃ СЂРµР·СѓР»СЊС‚Р°С‚РѕРј < 0");
 
     uint2022_t res;
     int64_t borrow = 0;
@@ -87,10 +85,11 @@ uint2022_t operator*(const uint2022_t& a, const uint2022_t& b) {
             res.data[i + j] = mul & 0xFFFFFFFF;
             carry = mul >> 32;
         }
-        assert(carry == 0 && "Overflow in multiplication");
+        assert(carry == 0 && "РџРµСЂРµРїРѕР»РЅРµРЅРёРµ РїСЂРё СѓРјРЅРѕР¶РµРЅРёРё вЂ” СЂРµР·СѓР»СЊС‚Р°С‚ РїСЂРµРІС‹С€Р°РµС‚ РІРјРµСЃС‚РёРјРѕСЃС‚СЊ uint2022_t");
     }
     return res;
 }
+
 
 bool operator==(const uint2022_t& a, const uint2022_t& b) {
     for (int i = 0; i < uint2022_t::CAPACITY; ++i) {
@@ -104,7 +103,7 @@ bool operator!=(const uint2022_t& a, const uint2022_t& b) {
 }
 
 std::ostream& operator<<(std::ostream& stream, const uint2022_t& value) {
-    // Выводим число как строку
+    // Р’С‹РІРѕРґРёРј С‡РёСЃР»Рѕ РєР°Рє СЃС‚СЂРѕРєСѓ
     uint2022_t temp = value;
 
     std::ostringstream oss;
@@ -140,15 +139,19 @@ std::ostream& operator<<(std::ostream& stream, const uint2022_t& value) {
     return stream;
 }
 
-// Деление на целое число
+// Р”РµР»РµРЅРёРµ РЅР° С†РµР»РѕРµ С‡РёСЃР»Рѕ
 uint2022_t operator/(const uint2022_t& a, const uint2022_t& b) {
-    if (b == from_uint(0)) return from_uint(0); // На 0 делить нельзя
+    assert(!(b == from_uint(0)) && "Р”РµР»РµРЅРёРµ РЅР° РЅРѕР»СЊ");
+    if (a < b) return from_uint(0);
 
-    uint2022_t left = from_uint(0), right = a, mid, prod, res;
+    uint2022_t left = from_uint(0);
+    uint2022_t right = a;
+    uint2022_t res;
 
     while (left <= right) {
-        mid = (left + right) / from_uint(2);
-        prod = mid * b;
+        uint2022_t mid = (left + right) >> 1;
+        uint2022_t prod = mid * b;
+
         if (prod == a || prod < a) {
             res = mid;
             left = mid + from_uint(1);
@@ -157,6 +160,7 @@ uint2022_t operator/(const uint2022_t& a, const uint2022_t& b) {
             right = mid - from_uint(1);
         }
     }
+
     return res;
 }
 
@@ -172,3 +176,15 @@ bool operator<=(const uint2022_t& a, const uint2022_t& b) {
     return (a < b) || (a == b);
 }
 
+uint2022_t operator>>(const uint2022_t& num, int shift) {
+    uint2022_t res;
+    uint32_t carry = 0;
+
+    for (int i = uint2022_t::CAPACITY - 1; i >= 0; --i) {
+        uint32_t current = num.data[i];
+        res.data[i] = (current >> shift) | (carry << (32 - shift));
+        carry = current & ((1 << shift) - 1);
+    }
+
+    return res;
+}

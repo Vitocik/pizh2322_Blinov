@@ -4,8 +4,7 @@
 
 
 struct uint2022_t {
-    // implement
-    static const int CAPACITY = 70; // 70 * 4 αΰιςΰ = 280 αΰις
+    static const int CAPACITY = 70; // 70 * 4 Π±Π°ΠΉΡ‚Π° = 280 Π±Π°ΠΉΡ‚
     uint32_t data[CAPACITY] = { 0 };
 };
 
@@ -33,10 +32,4 @@ bool operator<(const uint2022_t& lhs, const uint2022_t& rhs);
 
 bool operator<=(const uint2022_t& lhs, const uint2022_t& rhs);
 
-bool operator>(const uint2022_t& a, const uint2022_t& b) {
-    return b < a;
-}
-
-bool operator>=(const uint2022_t& a, const uint2022_t& b) {
-    return !(a < b);
-}
+uint2022_t operator>>(const uint2022_t& num, int shift);
