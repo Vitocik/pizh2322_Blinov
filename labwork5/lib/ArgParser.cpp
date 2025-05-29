@@ -24,7 +24,6 @@ namespace ArgumentParser {
         return *this;
     }
 
-
     BaseArgument& BaseArgument::StoreValue(std::string& ref) {
         store_callback = [&ref](const std::string& val) { ref = val; };
         return *this;
@@ -37,10 +36,6 @@ namespace ArgumentParser {
     BaseArgument& BaseArgument::StoreValues(std::vector<std::string>& ref) {
         store_callback = [&ref](const std::string& val) { ref.push_back(val); };
         return *this;
-    }
-
-    BaseArgument& BaseArgument::StoreValues(std::vector<int>&) {
-        throw std::logic_error("StoreValues<int> not supported for this argument");
     }
 
     BaseArgument& BaseArgument::Help(const std::string& desc) {
@@ -76,7 +71,7 @@ namespace ArgumentParser {
         return values.at(index);
     }
 
-    BaseArgument& IntArgument::StoreValues(std::vector<int>& ref) {
+    IntArgument& IntArgument::StoreValues(std::vector<int>& ref) {
         store_callback = [&ref](const std::string& val) {
             ref.push_back(std::stoi(val));
             };
@@ -187,7 +182,8 @@ namespace ArgumentParser {
     }
 
     bool ArgParser::ParseArgument(BaseArgument* arg, const std::string& value) {
-        return arg && arg->Parse(value);
+        if (!arg) return false;
+        return arg->Parse(value);
     }
 
     bool ArgParser::Parse(const std::vector<std::string>& args) {
@@ -195,9 +191,9 @@ namespace ArgumentParser {
         size_t i = 0;
 
         // Skip app name if it's not an argument
-        /*if (!args.empty() && args[0][0] != '-') {
+        if (!args.empty() && args[0][0] != '-') {
             i = 1;
-        }*/
+        }
 
         for (; i < args.size(); ++i) {
             const std::string& token = args[i];
@@ -331,7 +327,7 @@ namespace ArgumentParser {
         }
 
         for (const auto& [name, arg] : arguments) {
-            // Õåëï-ôëàã áóäåò âûâåäåí îòäåëüíî â êîíöå
+            // Ð¥ÐµÐ»Ð¿-Ñ„Ð»Ð°Ð³ Ð±ÑƒÐ´ÐµÑ‚ Ð²Ñ‹Ð²ÐµÐ´ÐµÐ½ Ð¾Ñ‚Ð´ÐµÐ»ÑŒÐ½Ð¾ Ð² ÐºÐ¾Ð½Ñ†Ðµ
             if (name == help_name) continue;
 
             if (arg->short_name) ss << "-" << arg->short_name << ", ";

@@ -34,7 +34,7 @@ namespace ArgumentParser {
         virtual BaseArgument& StoreValue(std::string& ref);
         virtual BaseArgument& StoreValue(bool& ref);
         virtual BaseArgument& StoreValues(std::vector<std::string>& ref);
-        virtual BaseArgument& StoreValues(std::vector<int>& ref);
+        virtual BaseArgument& StoreValues(std::vector<int>& ref) = 0;  // Сделать чисто виртуальным
         virtual BaseArgument& Help(const std::string& desc);
 
         virtual bool Parse(const std::string& value) = 0;
@@ -47,6 +47,11 @@ namespace ArgumentParser {
         using BaseArgument::BaseArgument;
         bool Parse(const std::string& value) override;
         const std::string& GetValue(size_t index = 0) const;
+
+        BaseArgument& StoreValues(std::vector<int>& ref) override {
+            // Строковый аргумент не поддерживает StoreValues<int>, выбрасываем
+            throw std::logic_error("StoreValues<int> not supported for StringArgument");
+        }
     };
 
     class IntArgument : public BaseArgument {
@@ -56,7 +61,7 @@ namespace ArgumentParser {
         using BaseArgument::BaseArgument;
         bool Parse(const std::string& value) override;
         int GetValue(size_t index = 0) const;
-        BaseArgument& StoreValues(std::vector<int>& ref) override;
+        IntArgument& StoreValues(std::vector<int>& ref) override;  // Возвращаем IntArgument&
     };
 
     class FlagArgument : public BaseArgument {
@@ -67,6 +72,9 @@ namespace ArgumentParser {
         bool Parse(const std::string& value) override;
         bool GetValue() const;
         BaseArgument& StoreValue(bool& ref) override;
+        BaseArgument& StoreValues(std::vector<int>& ref) override {
+            throw std::logic_error("StoreValues<int> not supported for FlagArgument");
+        }
     };
 
     class ArgParser {
